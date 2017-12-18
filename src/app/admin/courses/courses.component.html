@@ -1,0 +1,48 @@
+
+<div class="row separation">
+  <div class="col-md-6">
+    <button (click)="add()" class="btn btn-primary">Agregar</button>
+  </div>
+  <div class="col-md-6">
+    <input type="text" class="form-control" placeholder="Buscar" #filter>
+  </div>
+</div>
+
+<p-dataTable [value]="courses" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
+    <p-column field="name" header="Nombre"></p-column>
+    <p-column field="createdAt" header="Creacion"></p-column>
+    <p-column header="Acciones">
+      <ng-template let-course="rowData" pTemplate="body">
+          <button class="btn btn-sm btn-primary" (click)="edit(course)"><span class="fa fa-pencil"></span></button>
+          <button class="btn btn-sm btn-danger" (click)="delete(course);"><span class="fa fa-trash-o"></span></button>
+      </ng-template>
+    </p-column>
+</p-dataTable>
+
+<p-sidebar [(visible)]="display" position="right">
+  <form [formGroup]="courseForm" (ngSubmit)="save($event)">
+    <h3>{{ formTitle }}</h3>
+    <hr>
+    <input type="hidden" formControlName="id">
+    <input class="form-control" placeholder="Nombre" required minlength="4" formControlName="name">
+
+    <div *ngIf="courseForm.controls.name.invalid && (courseForm.controls.name.dirty)" class="alert alert-danger">
+
+      <div *ngIf="courseForm.controls.name.errors.required">
+        Name is required.
+      </div>
+      <div *ngIf="courseForm.controls.name.errors.minlength">
+        Name must be at least 4 characters long.
+      </div>
+    </div>
+    <hr>
+    <button class="btn btn-success pull-right" type="submit" [disabled]="!courseForm.valid">Guardar</button>
+  </form>
+</p-sidebar>
+
+<p-confirmDialog header="Confirmacion" icon="fa fa-trash-o" #cd>
+  <p-footer>
+        <button type="button" class="btn btn-sm btn-success" icon="fa-check" (click)="cd.accept()">Confirmar</button>
+        <button type="button" class="btn btn-sm btn-danger" icon="fa-close" (click)="cd.reject()">Cancelar</button>
+  </p-footer>
+</p-confirmDialog>

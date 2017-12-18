@@ -1,0 +1,55 @@
+<div class="row separation">
+  <div class="col-md-6">
+    <button (click)="add()" class="btn btn-primary">Agregar</button>
+  </div>
+  <div class="col-md-6">
+    <input type="text" class="form-control" placeholder="Buscar" #filter>
+  </div>
+</div>
+
+
+<p-dataTable [value]="units" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
+    <p-column field="course.name" header="Curso"></p-column>
+    <p-column field="name" header="Nombre"></p-column>
+    <p-column field="createdAt" header="Creacion"></p-column>
+    <p-column header="Acciones">
+      <ng-template let-unit="rowData" pTemplate="body">
+          <button class="btn btn-sm btn-primary" (click)="edit(unit)"><span class="fa fa-pencil"></span></button>
+          <button class="btn btn-sm btn-danger" (click)="delete(unit);"><span class="fa fa-trash-o"></span></button>
+      </ng-template>
+    </p-column>
+</p-dataTable>
+
+
+<p-sidebar [(visible)]="display" position="right">
+  <form [formGroup]="unitForm" (ngSubmit)="save($event)">
+    <h3>{{ formTitle }}</h3>
+    <hr>
+    <input type="hidden" formControlName="id">
+    
+    <p-dropdown [options]="courses" placeholder="Selecciona un curso" required filter="filter" formControlName="course_id" [style]="{'width':'100%'}"></p-dropdown>
+    
+    <div *ngIf="unitForm.controls.course_id.invalid && unitForm.controls.course_id.touched" class="alert alert-danger">
+      <div *ngIf="unitForm.controls.course_id.errors.required">
+        Curso es rquerido.
+      </div>
+    </div>
+
+    <input class="form-control" placeholder="Nombre" required formControlName="name">
+    <div *ngIf="unitForm.controls.name.invalid && (unitForm.controls.name.dirty)" class="alert alert-danger">
+      <div *ngIf="unitForm.controls.name.errors.required">
+        Nombre es rquerido.
+      </div>
+    </div>
+    <hr>
+    <button class="btn btn-success pull-right" type="submit" [disabled]="!unitForm.valid">Guardar</button>
+  </form>
+</p-sidebar>
+
+
+<p-confirmDialog header="Confirmacion" icon="fa fa-trash-o" #cd>
+  <p-footer>
+        <button type="button" class="btn btn-sm btn-success" icon="fa-check" (click)="cd.accept()">Confirmar</button>
+        <button type="button" class="btn btn-sm btn-danger" icon="fa-close" (click)="cd.reject()">Cancelar</button>
+  </p-footer>
+</p-confirmDialog>

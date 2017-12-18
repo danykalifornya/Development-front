@@ -1,0 +1,51 @@
+<header id="header">
+    <div class="row">
+        <div class="col-md-5">
+            <img src="assets/img/logo.png" id="logo">
+        </div>
+        <div class="col-md-2">
+            <h1>{{ title }}</h1>
+        </div>
+        <div class="col-md-5">
+            <a (click)="logout()">Salir</a>
+        </div>
+    </div>
+</header>
+
+<div id="side-bar">
+    <div id="menu-icons">
+        <ul>
+            <li><span class="fa fa-home" aria-hidden="true"></span></li>
+            <li><span class="fa fa-file" aria-hidden="true"></span></li>
+            <li><span class="fa fa-object-group" aria-hidden="true"></span></li>
+            <li><span class="fa fa-users" aria-hidden="true"></span></li>
+            <li><span class="fa fa-bar-chart" aria-hidden="true"></span></li>
+            <li><span class="fa fa-mortar-board" aria-hidden="true"></span></li>
+        </ul>
+
+        <ul class="bottom-menu">
+            <li><img src="assets/img/world.jpg" class="rounded-circle"></li>
+            <li><span class="fa fa-gear" aria-hidden="true"></span></li>
+        </ul>
+    </div>
+    <div id="menu-text">
+        <ul>
+            <li> <a [routerLink]="['/admin/members']">Dashboard</a> </li>
+            <li> <a [routerLink]="['/admin/courses' ]">Cursos</a> </li>
+            <li> <a [routerLink]="['/admin/units']">Unidades</a> </li>
+            <li> <a [routerLink]="['/admin/lessons']">Lecciones</a> </li>
+            <li> <a [routerLink]="['/admin/members']">Usuarios</a> </li>
+            <li>Declaraciones</li>
+        </ul>
+        <ul class="bottom-menu">
+            <li> <a [routerLink]="['/admin/profile']">Perfil</a> </li>
+            <li>Configuracion</li>
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
+
+<p-growl [(value)]="msgs" [sticky]="false" life="140"></p-growl>

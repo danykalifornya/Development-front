@@ -1,0 +1,43 @@
+<form [formGroup]="profileForm" (ngSubmit)="save($event)">
+    <h3>Informacion general</h3>
+    <input type="hidden" formControlName="id">
+    <input class="form-control" placeholder="Nombre" required formControlName="first_name">
+    <div *ngIf="profileForm.controls.first_name.invalid && (profileForm.controls.first_name.dirty)" class="alert alert-danger">
+      <div *ngIf="profileForm.controls.first_name.errors.required">
+        Nombre es requerido.
+      </div>
+    </div>
+
+    <input class="form-control" placeholder="Apellido" required formControlName="last_name">
+    <div *ngIf="profileForm.controls.last_name.invalid && (profileForm.controls.last_name.dirty)" class="alert alert-danger">
+      <div *ngIf="profileForm.controls.last_name.errors.required">
+        Nombre es requerido.
+      </div>
+    </div>
+
+    <input class="form-control" placeholder="Email" required formControlName="email">
+
+    <button class="btn btn-success pull-right" type="submit" [disabled]="!profileForm.valid">Guardar</button>
+</form>
+
+<hr>
+
+<form [formGroup]="passwordForm" (ngSubmit)="changePass($event)">
+    <h3>Cambiar contrasena</h3>
+
+    <input class="form-control" placeholder="Contrasena actual" required formControlName="oldPassword">
+    <div *ngIf="passwordForm.controls.oldPassword.invalid && (passwordForm.controls.oldPassword.dirty)" class="alert alert-danger">
+      <div *ngIf="passwordForm.controls.oldPassword.errors.required">
+        Nombre es requerido.
+      </div>
+    </div>
+
+    <input class="form-control" placeholder="Contrasena nueva" required formControlName="newPassword">
+    <div *ngIf="passwordForm.controls.newPassword.invalid && (passwordForm.controls.newPassword.dirty)" class="alert alert-danger">
+      <div *ngIf="passwordForm.controls.newPassword.errors.required">
+        Nombre es requerido.
+      </div>
+    </div>
+    <hr>
+    <button class="btn btn-success pull-right" type="submit" [disabled]="!passwordForm.valid">Guardar</button>
+</form>

@@ -1,0 +1,28 @@
+
+<div id="login-logo" class="positioning">
+    <img src="assets/img/logo.png" id="logo">
+</div>
+
+<div id="login" class="positioning">
+    <form [formGroup]="loginForm" (ngSubmit)="login($event)">
+        <h3>{{ formTitle }}</h3>
+        <input class="form-control" placeholder="Email" required formControlName="email">
+        <div *ngIf="loginForm.controls.email.invalid && (loginForm.controls.email.dirty)" class="alert alert-danger">
+          <div *ngIf="loginForm.controls.email.errors.required">
+            Email es requerido.
+          </div>
+        </div>
+
+        <input type="password" class="form-control" placeholder="password" required formControlName="password">
+        <div *ngIf="loginForm.controls.password.invalid && (loginForm.controls.password.dirty)" class="alert alert-danger">
+          <div *ngIf="loginForm.controls.password.errors.required">
+            Password es requerido.
+          </div>
+        </div>
+        <div class=" text-center">
+            <button class="btn btn-login" type="submit" [disabled]="!loginForm.valid">Login</button>
+        </div>
+    </form>
+</div>
+
+<p-growl [(value)]="msgs" [sticky]="false" life="140"></p-growl>

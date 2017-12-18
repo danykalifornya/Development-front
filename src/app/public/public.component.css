@@ -1,0 +1,58 @@
+body {
+  background-color: #fff !important;
+}
+body .container{
+	margin-top: 0px;
+}
+.menu-courses{
+	width: 100%;
+	height: 60px;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	list-style: none;
+	overflow: hidden;
+	background-color:#fff;
+	border: 1px solid #ccc;
+	position: relative;
+	z-index: 1000;
+}
+.menu-courses li{
+	width: 100%;
+	height:60px;
+	text-align: center;
+	list-style: none;
+	overflow: hidden; 
+	font-size: 38px;
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+	cursor: pointer;
+}
+.menu-courses.open{
+	height: 200%;
+	overflow-y: auto;
+}
+
+.list-lesson, .list-units{
+	max-height: 120px;
+	overflow: auto;
+	display: none;
+}
+.list-units .card{
+	height: 55px;
+	font-size: 25px;
+	line-height: 55px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+.list-lesson .card{
+	height: 35px;
+	font-size: 20px;
+	line-height: 35px;
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.list-lesson.open, .list-units.open  {
+	display: flex;
+}

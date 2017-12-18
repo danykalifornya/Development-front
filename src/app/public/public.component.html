@@ -1,0 +1,45 @@
+<header id="header">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="assets/img/logo.jpg" id="logo" height="50">
+        </div>
+        <div class="col-md-4">
+            <ul class="menu-courses" [ngClass]="{'open':showCourses}" (click)="toggleMenu('showCourses')">
+                <li>{{ title }}</li>
+                <li *ngFor="let cse of courses" (click)="selectCourse(cse)">
+                    {{ cse.name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="row breadcrumb">
+        <div class="col-md-2">
+            <div class="card" (click)="toggleMenu('showCourses')">
+                {{ course.name }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card" (click)="toggleMenu('showUnits')">
+                {{ unit.name }}
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card" (click)="publicLessons.toggleMenu('showLessons')">
+                {{ publicLessons.lesson.name }}
+            </div>
+        </div>
+    </div>
+    
+    <div class="row list-units" [ngClass]="{'open':showUnits}">
+        <div class="col-md-3" *ngFor="let uts of units" (click)="selectUnit(uts)">
+            <div class="card">
+                {{ uts.name }}
+            </div>
+        </div>
+    </div>
+
+    <public-lesson></public-lesson>
+</div>

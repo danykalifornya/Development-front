@@ -1,0 +1,51 @@
+<div class="row separation">
+    <div class="col-md-10">
+        <h4>{{ lesson.name }}</h4>
+    </div>
+    <div class="col-md-2">
+        <button (click)="add()" class="btn btn-primary">Agregar</button>
+    </div>
+</div>
+
+
+<p-dataTable [value]="examples" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
+    <p-column field="name" header="Nombre"></p-column>
+    <p-column header="Acciones">
+      <ng-template let-example="rowData" pTemplate="body">
+          <button class="btn btn-sm btn-primary" (click)="edit(example)">
+              <span class="fa fa-pencil"></span>
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="delete(example)">
+              <span class="fa fa-trash-o"></span>
+          </button>
+      </ng-template>
+    </p-column>
+</p-dataTable>
+
+
+<p-sidebar [(visible)]="display" position="right" [fullScreen]="true">
+    <form [formGroup]="exampleForm" (ngSubmit)="save($event)">
+        <h3>{{ formTitle }}</h3>
+        <hr>
+        <input type="hidden" formControlName="id">
+
+        <input class="form-control" placeholder="Nombre" required formControlName="name">
+        <div *ngIf="exampleForm.controls.name.invalid && (exampleForm.controls.name.dirty)" class="alert alert-danger">
+            <div *ngIf="exampleForm.controls.name.errors.required">
+                Nombre es rquerido.
+            </div>
+        </div>
+        <textarea class="form-control" placeholder="Descripcion" formControlName="description"></textarea> 
+        <textarea class="form-control" placeholder="Ejemplo" formControlName="text"></textarea> 
+        <hr>
+        <button class="btn btn-success pull-right" type="submit" [disabled]="!exampleForm.valid">Guardar</button>
+    </form>
+</p-sidebar>
+
+
+<p-confirmDialog header="Confirmacion" icon="fa fa-trash-o" #cd>
+    <p-footer>
+        <button type="button" class="btn btn-sm btn-success" icon="fa-check" (click)="cd.accept()">Confirmar</button>
+        <button type="button" class="btn btn-sm btn-danger" icon="fa-close" (click)="cd.reject()">Cancelar</button>
+    </p-footer>
+</p-confirmDialog>

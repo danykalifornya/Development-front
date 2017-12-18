@@ -1,0 +1,88 @@
+<div class="row separation">
+    <div class="col-md-6">
+        <button (click)="add()" class="btn btn-primary">Agregar</button>
+    </div>
+    <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Buscar" #filter>
+    </div>
+</div>
+
+
+<p-dataTable [value]="lessons" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
+    <p-column field="unit.name" header="Unit"></p-column>
+    <p-column field="name" header="Nombre"></p-column>
+    <p-column field="createdAt" header="Creacion"></p-column>
+    <p-column header="Acciones">
+        <ng-template let-lesson="rowData" pTemplate="body">
+            <button class="btn btn-sm btn-primary" (click)="edit(lesson)">
+                <span class="fa fa-pencil"></span>
+            </button>
+            <a [routerLink]="['/admin/examples', lesson.id]">
+                <button class="btn btn-sm btn-secondary">
+                    Ejemplos ({{ lesson.examples.length }})
+                </button>
+            </a>
+            <button class="btn btn-sm btn-danger" (click)="delete(lesson);">
+                <span class="fa fa-trash-o"></span>
+            </button>
+        </ng-template>
+    </p-column>
+</p-dataTable>
+
+
+<p-sidebar [(visible)]="display" position="right" [fullScreen]="true">
+    <form [formGroup]="lessonForm" (ngSubmit)="save($event)">
+        <h3>{{ formTitle }}</h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-8">
+
+                <input type="hidden" formControlName="id">
+            
+                <p-dropdown [options]="units" placeholder="Selecciona una unidad" required filter="filter" formControlName="unit_id" [style]="{'width':'100%'}" (onChange)="getRelations()" >
+                </p-dropdown>
+            
+                <div *ngIf="lessonForm.controls.unit_id.invalid && lessonForm.controls.unit_id.touched" class="alert alert-danger">
+                    <div *ngIf="lessonForm.controls.unit_id.errors.required">
+                        Curso es rquerido.
+                    </div>
+                </div>
+
+                <input class="form-control" placeholder="Nombre" required formControlName="name">
+                <div *ngIf="lessonForm.controls.name.invalid && (lessonForm.controls.name.dirty)" class="alert alert-danger">
+                    <div *ngIf="lessonForm.controls.name.errors.required">
+                        Nombre es rquerido.
+                    </div>
+                </div>
+
+                <textarea class="form-control" placeholder="Descripcion" required formControlName="description"></textarea> 
+
+                <input class="form-control" placeholder="Tags" formControlName="tags">
+            </div>
+            <div class="col-md-4">
+                <div [hidden]="(relations.length == 0)">
+                    <p-dropdown #relaionId [options]="relations" filter="true" [style]="{'width':'100%'}"></p-dropdown>
+                    <input class="form-control" placeholder="Temas relaciones" #relationName>
+                    
+                    <button (click)="addRelations(relationName, relaionId)" type="button" class="btn btn-primary btn-sm pull-right">add</button>
+                    <ul class="lesson-relations">
+                        <li *ngFor="let rel of relationsArray; let i = index">
+                            <span class="fa fa-times" aria-hidden="true" (click)="deleteRelation(i)"></span>
+                            {{ rel.text }} 
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <button class="btn btn-success pull-right" type="submit" [disabled]="!lessonForm.valid">Guardar</button>
+    </form>
+</p-sidebar>
+
+
+<p-confirmDialog header="Confirmacion" icon="fa fa-trash-o" #cd>
+  <p-footer>
+        <button type="button" class="btn btn-sm btn-success" icon="fa-check" (click)="cd.accept()">Confirmar</button>
+        <button type="button" class="btn btn-sm btn-danger" icon="fa-close" (click)="cd.reject()">Cancelar</button>
+  </p-footer>
+</p-confirmDialog>
