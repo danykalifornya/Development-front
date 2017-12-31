@@ -32,6 +32,15 @@ export class PublicComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCourses();
+        var localCourse = localStorage.getItem('course');
+        var localUnit = localStorage.getItem('unit');
+
+        if(localCourse != null){
+            this.selectCourse(JSON.parse(localCourse));
+            if(localUnit != null){
+                this.selectUnit(JSON.parse(localUnit));
+            }
+        }
     }
   
     getCourses(): void {
@@ -47,6 +56,7 @@ export class PublicComponent implements OnInit {
         this.showUnits = true;
         this.unit = {};
         this.publicLessons.lesson = {};
+        localStorage.setItem('course', JSON.stringify(course));
     }
 
     selectUnit(unit): void {
@@ -55,6 +65,7 @@ export class PublicComponent implements OnInit {
             this.showUnits = false;
             this.publicLessons.lessons = unit.lessons;
             this.publicLessons.showLessons = true;
+            localStorage.setItem('unit', JSON.stringify(unit));
         });
     }
 
@@ -62,4 +73,5 @@ export class PublicComponent implements OnInit {
         if(this[x]) this[x] = false;
         else this[x] = true;
     }
+
 }

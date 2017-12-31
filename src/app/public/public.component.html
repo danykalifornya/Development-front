@@ -31,6 +31,14 @@
                 {{ publicLessons.lesson.name }}
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="input-group">
+                <input class="form-control" type="text" placeholder="Buscar" #search>
+                <span class="input-group-btn">
+                    <button class="btn input-group-addon" (click)="publicLessons.search(search)">Buscar</button>
+                </span>
+            </div>
+        </div>
     </div>
     
     <div class="row list-units" [ngClass]="{'open':showUnits}">

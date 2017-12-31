@@ -64,8 +64,8 @@ export class LessonsComponent implements OnInit {
         this.relationsArray = JSON.parse(lesson.relations);
     };
 
-    save(): void {
-
+    save(): void 
+    {
         this.lessonForm.value.relations = JSON.stringify(this.relationsArray);
         if(this.lessonForm.value.id){
             this.apiService.update(this.lessonForm.value, 'lessons')

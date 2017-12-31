@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ExamplesComponent implements OnInit {
 
     examples: any[] = [];
+    tooltips: any[] = [];
     lesson: any = {name:''};
     display: boolean = false;
     formTitle: string = '';
@@ -35,6 +36,7 @@ export class ExamplesComponent implements OnInit {
         this.sub = this.route.params.subscribe(params => {
             this.getLesson(params['id']);
         });
+        console.log(this.sub);
     }
 
     getLesson(id){
@@ -57,11 +59,16 @@ export class ExamplesComponent implements OnInit {
     edit(example): void {
         this.formTitle = 'Editar ejemplo';
         this.display = true;
+        console.log(example);
         this.exampleForm = this.fb.group(example);
+        this.tooltips = JSON.parse(example.tooltips);
     }
 
-    save(): void {
+    save(): void 
+    {
         this.exampleForm.value.lesson_id = this.lesson.id;
+        this.exampleForm.value.tooltips = JSON.stringify(this.tooltips);
+
         if(this.exampleForm.value.id){
             this.apiService.update(this.exampleForm.value, 'examples')
             .then(example => {
@@ -79,6 +86,10 @@ export class ExamplesComponent implements OnInit {
         this.display = false;
     }
 
+    addTooltip(keyword, name, text){
+        this.tooltips.push({keyword:keyword.value, name:name.value, text:text.value });
+    }
+
     delete(example: any): void {
         this.confirmationService.confirm({ 
             message: 'Confirmas que deseas borrar el registro?',
@@ -89,6 +100,10 @@ export class ExamplesComponent implements OnInit {
                 })
             }
         });
+    }
+
+    deleteTooltip(index){
+        this.tooltips.splice(index, 1);
     }
 
     createForm(): void {

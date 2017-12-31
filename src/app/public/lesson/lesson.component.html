@@ -6,6 +6,8 @@
 	</div>
 </div>
 
+<hr>
+
 <div class="row">
 	<h2>{{ lesson.name }}</h2>
 </div>
@@ -15,7 +17,6 @@
 		{{ lesson.description }}
   	</div>
 </div>
-
 <div class="row">
 	<div class="col-md-12">
 		<div id="accordion" role="tablist">
@@ -25,9 +26,7 @@
     			</div>
 
     			<div class="collapse" [ngClass]="{'show':example.open}">
-	      			<div class="card-body">
-	        			<pre>{{ example.text }}</pre>
-	      			</div>
+	      			<div class="card-body" [innerHTML]="example.text"></div>
     			</div>
   			</div>
 		</div>

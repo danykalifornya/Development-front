@@ -65,7 +65,7 @@
                     <input class="form-control" placeholder="Temas relaciones" #relationName>
                     
                     <button (click)="addRelations(relationName, relaionId)" type="button" class="btn btn-primary btn-sm pull-right">add</button>
-                    <ul class="lesson-relations">
+                    <ul class="tags-list">
                         <li *ngFor="let rel of relationsArray; let i = index">
                             <span class="fa fa-times" aria-hidden="true" (click)="deleteRelation(i)"></span>
                             {{ rel.text }} 

@@ -28,6 +28,7 @@ import {
   DataTableModule, ConfirmDialogModule, ConfirmationService, SidebarModule, GrowlModule,
   DropdownModule, EditorModule
 } from 'primeng/primeng';
+import { TooltipDirective } from './directives/tooltip.directive';
 
 @NgModule({
   imports: [
@@ -57,7 +58,8 @@ import {
 
     PublicComponent,
     PublicLessonComponent,
-    FilterPipe
+    FilterPipe,
+    TooltipDirective
   ],
   providers: [ GeneralService, ApiService, AuthService, ConfirmationService ],
   bootstrap: [ AppComponent ]

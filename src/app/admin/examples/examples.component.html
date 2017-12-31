@@ -1,12 +1,16 @@
 <div class="row separation">
-    <div class="col-md-10">
+    <div class="col-md-9">
         <h4>{{ lesson.name }}</h4>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-3">
         <button (click)="add()" class="btn btn-primary">Agregar</button>
+        <a [routerLink]="['/admin/lessons']">
+            <button class="btn btn-sm btn-warning">
+                Regresar
+            </button>
+        </a>
     </div>
 </div>
-
 
 <p-dataTable [value]="examples" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
     <p-column field="name" header="Nombre"></p-column>
@@ -27,18 +31,37 @@
     <form [formGroup]="exampleForm" (ngSubmit)="save($event)">
         <h3>{{ formTitle }}</h3>
         <hr>
-        <input type="hidden" formControlName="id">
+        <div class="row">
+            <div class="col-md-8">
+                <input type="hidden" formControlName="id">
 
-        <input class="form-control" placeholder="Nombre" required formControlName="name">
-        <div *ngIf="exampleForm.controls.name.invalid && (exampleForm.controls.name.dirty)" class="alert alert-danger">
-            <div *ngIf="exampleForm.controls.name.errors.required">
-                Nombre es rquerido.
+                <input class="form-control" placeholder="Nombre" required formControlName="name">
+                <div *ngIf="exampleForm.controls.name.invalid && (exampleForm.controls.name.dirty)" class="alert alert-danger">
+                    <div *ngIf="exampleForm.controls.name.errors.required">
+                        Nombre es rquerido.
+                    </div>
+                </div>
+                <textarea class="form-control" placeholder="Descripcion" formControlName="description"></textarea>
+                <textarea class="form-control" placeholder="Ejemplo" formControlName="text"></textarea> 
+                <hr>
+                <button class="btn btn-success pull-right" type="submit" [disabled]="!exampleForm.valid">Guardar</button>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <input class="form-control" placeholder="Keyword" #keywordName>
+                    <input class="form-control" placeholder="Title" #tooltipTitle>
+                    <textarea class="form-control" placeholder="Text" #tooltipText></textarea>
+                    <button (click)="addTooltip(keywordName, keywordName, tooltipText)" type="button" class="btn btn-primary btn-sm pull-right">add</button>
+                    <ul class="tags-list">
+                        <li *ngFor="let tool of tooltips; let i = index">
+                            <span class="fa fa-times" aria-hidden="true" (click)="deleteTooltip(i)"></span>
+                            {{ tool.keyword }} 
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <textarea class="form-control" placeholder="Descripcion" formControlName="description"></textarea> 
-        <textarea class="form-control" placeholder="Ejemplo" formControlName="text"></textarea> 
-        <hr>
-        <button class="btn btn-success pull-right" type="submit" [disabled]="!exampleForm.valid">Guardar</button>
+
     </form>
 </p-sidebar>
 

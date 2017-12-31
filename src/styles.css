@@ -122,11 +122,11 @@ input.form-control{
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.lesson-relations{
+.tags-list{
   list-style: none;
   padding: 0px;
 }
-.lesson-relations li{
+.tags-list li{
   display: inline-block;
   border: 1px #ccc solid;
   font-size: 11px;
@@ -134,8 +134,44 @@ input.form-control{
   margin: 5px;
   border-radius: 3px;
 }
-.lesson-relations span{
+.tags-list span{
   color: #dc3545;
+}
+textarea.form-control{
+  margin-bottom: 10px;
+}
+
+.plus{
+  position: absolute;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  text-align: center;
+  line-height: 13px;
+  border: 1px #ccc solid;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color:#fff;
+  margin-top:-10px; 
+  opacity: 0.5;
+}
+.plus:hover{
+  overflow: visible;
+  opacity: 1;
+}
+
+.plus-content{
+  width: 700px;
+  height: 70px;
+  overflow: auto;
+  padding: 10px;
+  font-size: 14px;
+  background-color:#74c6a5;
+  position: absolute;
+  top: -50px;
+  left: 0px;
+  border: 1px #ccc solid;
+  border-radius: 10px;
 }
 
 @media (max-width: 575px) {
