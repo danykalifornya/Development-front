@@ -7,9 +7,8 @@
     </div>
 </div>
 
-
-<p-dataTable [value]="lessons" [rows]="10" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
-    <p-column field="unit.name" header="Unit"></p-column>
+<p-dataTable [value]="lessons" [rows]="20" [paginator]="true" [pageLinks]="3" [globalFilter]="filter">
+    <p-column field="unit.name" header="Unit" sortable="true"></p-column>
     <p-column field="name" header="Nombre"></p-column>
     <p-column field="createdAt" header="Creacion"></p-column>
     <p-column header="Acciones">
@@ -28,7 +27,6 @@
         </ng-template>
     </p-column>
 </p-dataTable>
-
 
 <p-sidebar [(visible)]="display" position="right" [fullScreen]="true">
     <form [formGroup]="lessonForm" (ngSubmit)="save($event)">
@@ -78,7 +76,6 @@
         <button class="btn btn-success pull-right" type="submit" [disabled]="!lessonForm.valid">Guardar</button>
     </form>
 </p-sidebar>
-
 
 <p-confirmDialog header="Confirmacion" icon="fa fa-trash-o" #cd>
   <p-footer>
